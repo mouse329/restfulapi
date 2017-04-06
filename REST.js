@@ -39,7 +39,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.post("/users",function(req,res){
         var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["user_login","user_email","user_password",req.body.email,md5(req.body.password)];
+        var table = ["user_login","name","user_password",req.body.email,md5(req.body.password)];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -52,7 +52,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.put("/users",function(req,res){
         var query = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
-        var table = ["user_login","user_password",md5(req.body.password),"user_email",req.body.email];
+        var table = ["user_login","user_password",md5(req.body.password),"name",req.body.email];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -65,7 +65,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.delete("/users/:email",function(req,res){
         var query = "DELETE from ?? WHERE ??=?";
-        var table = ["user_login","user_email",req.params.email];
+        var table = ["user_login","name",req.params.email];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
