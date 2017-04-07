@@ -14,7 +14,7 @@ function REST(){
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    // res.setHeader('Access-Control-Allow-Origin', 'http://godnodejs.hopto.org:3000/api/');
+     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:4200');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
