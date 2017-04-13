@@ -37,7 +37,7 @@ REST.prototype.connectMysql = function() {
         host     : 'localhost',
         user     : 'root',
         password : '',
-        database : 'restful_api_demo',
+        database : 'card_api_demo',
         debug    :  false
     });
     pool.getConnection(function(err,connection){
