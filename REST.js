@@ -1,4 +1,4 @@
-var mysql   = require("mysql");
+var mysql   = require("mariasql");
 
 function REST_ROUTER(router,connection,md5) {
     var self = this;
@@ -13,7 +13,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.get("/users",function(req,res){
         var query = "SELECT * FROM ??";
-        var table = ["user_login"];
+        var table = ["card_login"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -24,9 +24,9 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
         });
     });
 
-    router.get("/users/:user_id",function(req,res){
+    router.get("/users/:card_uid",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["user_login","user_id",req.params.user_id];
+        var table = ["card_login","card_id",req.params.card_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -39,7 +39,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.post("/users",function(req,res){
         var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["user_login","name","user_password",req.body.email,md5(req.body.password)];
+        var table = ["card_login","card_uid","card_user_email",req.body.uid,req.body.email];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {

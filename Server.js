@@ -1,5 +1,5 @@
 var express = require("express");
-var mysql   = require("mysql");
+var mysql   = require("mariasql");
 var bodyParser  = require("body-parser");
 var md5 = require('MD5');
 var rest = require("./REST.js");
