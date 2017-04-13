@@ -26,7 +26,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
 
     router.get("/users/:card_uid",function(req,res){
         var query = "SELECT * FROM ?? WHERE ??=?";
-        var table = ["card_login","card_id",req.params.card_id];
+        var table = ["card_login","card_uid",req.params.card_uid];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -38,8 +38,8 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     });
 
     router.post("/users",function(req,res){
-        var query = `IF EXISTS (SELECT * FROM ?? WHERE ??=?) INSERT INTO ??(??,??) VALUES (?,?)`;
-        var table = ["card_login","card_uid",req.body.uid, "card_login","card_uid","card_user_email",req.body.uid,req.body.email];
+        var query = "INSERT INTO ??(??) VALUES (?)";
+        var table = ["card_login","card_uid_fk",req.body.uid];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
