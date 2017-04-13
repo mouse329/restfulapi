@@ -1,4 +1,4 @@
-var mysql   = require("mariasql");
+var mysql   = require("mysql");
 
 function REST_ROUTER(router,connection,md5) {
     var self = this;
@@ -38,8 +38,8 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     });
 
     router.post("/users",function(req,res){
-        var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["card_login","card_uid","card_user_email",req.body.uid,req.body.email];
+        var query = "INSERT INTO ??(??,??) VALUES (?,?) WHERE EXIT (SELECT * FROM ?? WHERE ??=?";
+        var table = ["card_login","card_uid","card_user_email",req.body.uid,req.body.email,"card_login","card_uid",req.body.uid];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
