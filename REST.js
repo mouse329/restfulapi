@@ -38,15 +38,22 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,md5) {
     });
 
     router.post("/users",function(req,res){
-        var query = "INSERT INTO ??(??) VALUES (?)";
-        var table = ["card_login","card_uid_fk",req.body.uid];
+        var query = `INSERT INTO  ??(??) 
+                     SELECT ? 
+                     FROM DUAL
+                     WHERE NOT EXISTS(
+                         SELECT * 
+                         FROM ?? 
+                         WHERE ?? >= Date_Add(NOW(),INTERVAL -2 HOUR)
+                     );`
+        var table = ["card_login","card_uid_fk",req.body.uid,"card_login","card_login_date"];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
                 console.log(+ err.code + " ,isFatal - " + err.fatal);
                 res.json({"Error" : true, "Message" : "Error executing MySQL query"});
             } else {
-                res.json({"Error" : false, "Message" : "User Added !"});
+                res.json({"Error" : false, "Message" :" Added !"});
             }
         });
     });
